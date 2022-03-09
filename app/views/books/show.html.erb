@@ -1,0 +1,37 @@
+<div class="container">
+  <div class="row">
+    <div class="col-md-3" style="background-color:;">
+      <%= render 'list', book: @book_new, user: @user %>
+    </div>
+    <div class="col-md-8 offset-md-1">
+      <h2>Book detail</h2>
+      <table class="table">
+        <tbody>
+            <tr>
+              <td>
+                <%= link_to user_path(@book.user.id) do %>
+                  <p><%= image_tag @book.user.get_profile_image(40,40) %> </p>
+                <% end %>
+                <p><%= link_to @book.user.name, user_path(@book.user.id) %></p>
+              </td>
+              <td>
+                <p><%= link_to @book.title, book_path %></p>
+              </td>
+              <td>
+                <p><%= @book.body %></p>
+              </td>
+              <% if user_signed_in? && current_user.id == @book.user_id %>
+              <td>
+                <p><%= link_to "Edit", edit_book_path(@book.id), class: "btn btn-success btn-sm btn-block mb-3 sign_in" %></p>
+              </td>
+
+              <td>
+                <p><%= link_to "Destroy", book_path(@book.id), method: :delete, "data-confirm" => "Are you sure ?", class: "btn btn-danger btn-sm btn-block mb-3 sign_in" %></p>
+              </td>
+              <% end %>
+            </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
